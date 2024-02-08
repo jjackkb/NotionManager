@@ -13,7 +13,7 @@ public class Daemon {
    private static final ScheduledExecutorService clockExecutor = Executors.newScheduledThreadPool(1); //delay executor
    private static final Runnable clockUpdate = clock::update; //delay executor method runner
 
-   public static void main(String[] args) {
+   public static void daemon() {
       con.out("NotionManager daemon started at " + clock);
       clockExecutor.scheduleAtFixedRate(clockUpdate, 0, 1, TimeUnit.SECONDS); //call delay executor with delay period 1 second
       con.setLevel(3);
