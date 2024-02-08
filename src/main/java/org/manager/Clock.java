@@ -6,19 +6,19 @@ import java.util.Date;
 //The Clock class is used by org.manager.Daemon to track elapsed time and execute methods intended to run periodically.
 public class Clock {
 
+   private static final Console con = new Console(Clock.class.getName());
    private static long refTime = 0; //refTime is used to calculate elapsed time of program execution
    private int h;
    private int m;
    private int s;
 
    public Clock() {
+      con.out("Instantiating Clock object", 2);
       Date d = new Date(); //Date is used to get current time
 
       this.h = d.getHours();
       this.m = d.getMinutes();
       this.s = d.getSeconds();
-
-      System.out.println("Daemon started at " + this);
    }
 
    //update is called by Daemon.main every second, defines the current time, increments refTime and checks for time-elapsed milestones
@@ -47,16 +47,16 @@ public class Clock {
 
    //method execution lists for amount of elapsed time
    private void sec5() {
-      System.out.println("5 seconds have passed!");
+      con.out("5 seconds have passed!");
    }
    private void min15() {
-      System.out.println("15 minutes have passed!");
+      con.out("15 minutes have passed!");
    }
    private void min30() {
-      System.out.println("30 minutes have passed!");
+      con.out("30 minutes have passed!");
    }
    private void hour1() {
-      System.out.println("1 hour has passed!");
+      con.out("1 hour has passed!");
    }
 
    //toString returns current recorded time in the format hr:min:sec

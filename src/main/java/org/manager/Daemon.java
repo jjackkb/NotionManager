@@ -9,10 +9,13 @@ Daemon.main utilizes org.manager.Clock to track elapsed time and periodically ex
 public class Daemon {
 
    private static final Clock clock = new Clock(); //Clock object manages program-relative time
+   private static final Console con = new Console(Daemon.class.getName());
    private static final ScheduledExecutorService clockExecutor = Executors.newScheduledThreadPool(1); //delay executor
    private static final Runnable clockUpdate = clock::update; //delay executor method runner
 
    public static void main(String[] args) {
+      con.out("NotionManager daemon started at " + clock);
       clockExecutor.scheduleAtFixedRate(clockUpdate, 0, 1, TimeUnit.SECONDS); //call delay executor with delay period 1 second
+      con.setLevel(3);
    }
 }
