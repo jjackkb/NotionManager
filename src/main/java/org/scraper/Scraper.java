@@ -4,15 +4,7 @@ import org.manager.Console;
 
 import org.htmlunit.SilentCssErrorHandler;
 import org.htmlunit.WebClient;
-import org.htmlunit.html.DomElement;
-import org.htmlunit.html.HtmlInput;
-import org.htmlunit.html.HtmlPage;
-
-import java.util.HashMap;
-import java.util.Map;
-import org.apache.commons.logging.LogFactory;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import org.htmlunit.Page;
 
 public class Scraper {
 
@@ -23,30 +15,21 @@ public class Scraper {
     con.out("Instantiating new WebClient");
 
     this.webC = new WebClient();
+    webC.setCssErrorHandler(new SilentCssErrorHandler()); //mute WebClient complaining
+    webC.getOptions().setJavaScriptEnabled(false);
 
-    webC.setCssErrorHandler(new SilentCssErrorHandler());
-
-    login(webC);
+    //run subclass login method
+    if (this.getClass().getName().equals("org.scraper.SchoologyScraper"))
+      org.scraper.SchoologyScraper.login(webC);
   }
 
-  public void login(WebClient client) {
-    con.out("Logging WebClient into Schoology");
-    Map<String, String> creds = new HashMap();
-
-    if (this.getClass().getName().equals("com.scraper.SchoologyScraper")) 
-      creds = org.scraper.SchoologyScraper.getCreds();
-
+  //fetch page as Page given url
+  protected Page getPage(String url) {
     try {
-        client.getOptions().setJavaScriptEnabled(false);
-        HtmlPage currentPage = client.getPage("https://app.schoology.com/login");
-        HtmlInput username = currentPage.getElementByName("mail");
-        username.setValueAttribute(creds.get("account"));
-        HtmlInput password = currentPage.getElementByName("pass");
-        password.setValueAttribute(creds.get("password"));
-        DomElement submitBtn = currentPage.getElementByName("op");
-        submitBtn.click();
+    return (Page) webC.getPage(url);
     } catch (Exception e) {
-      con.err("Error logging WebClient into schoology");
-    }
+      con.err("Eror while fetching page");
+      return null;
+    } 
   }
 }

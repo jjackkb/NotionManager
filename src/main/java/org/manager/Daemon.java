@@ -22,5 +22,6 @@ public class Daemon {
 
    protected static void instantiate() {
       SchoologyScraper sc = new SchoologyScraper();
+      sc.getCalendar();
    }
 }
