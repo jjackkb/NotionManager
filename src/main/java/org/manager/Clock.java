@@ -3,17 +3,18 @@ package org.manager;
 import java.text.DecimalFormat;
 import java.util.Date;
 
+//The Clock class is used by org.manager.Daemon to track elapsed time and execute methods intended to run periodically.
 public class Clock {
 
    private static final Console con = new Console(Clock.class.getName());
-   private static long refTime = 0; //refTime is used to track elapsed time of program execution
+   private static long refTime = 0; //refTime is used to calculate elapsed time of program execution
    private int h;
    private int m;
    private int s;
 
    public Clock() {
       con.out("Instantiating Clock object", 2);
-      Date d = new Date();
+      Date d = new Date(); //Date is used to get current time
 
       this.h = d.getHours();
       this.m = d.getMinutes();
@@ -22,12 +23,15 @@ public class Clock {
 
    //update is called by Daemon.main every second, defines the current time, increments refTime and checks for time-elapsed milestones
    public void update() {
+      //define new current time
       Date d = new Date();
 
       h = d.getHours();
       m = d.getMinutes();
       s = d.getSeconds();
 
+      //each nested if statement checks if a span of time has passed and execute its respective method
+      //(refTime != 0) checks program has not just started because all if statements result to true
       if (refTime != 0) {
          if (refTime % 5 == 0) //Every 5 seconds
             sec5();
