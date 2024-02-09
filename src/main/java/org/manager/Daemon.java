@@ -1,5 +1,6 @@
 package org.manager;
 
+import org.scraper.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -17,5 +18,11 @@ public class Daemon {
       con.out("NotionManager daemon started at " + clock);
       clockExecutor.scheduleAtFixedRate(clockUpdate, 0, 1, TimeUnit.SECONDS); //call delay executor with delay period 1 second
       con.setLevel(3);
+
+      instantiate();
+   }
+
+   protected static void instantiate() {
+      SchoologyScraper sc = new SchoologyScraper();
    }
 }

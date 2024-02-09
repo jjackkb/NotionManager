@@ -59,7 +59,6 @@ public class Clock {
       con.out("1 hour has passed!");
    }
 
-   //toString returns current recorded time in the format hr:min:sec
    @Override
    public String toString() {
       //DecimalFormat f is used to format numbers lower than 10 to display as 0x instead of x
