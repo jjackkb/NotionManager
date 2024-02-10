@@ -1,6 +1,7 @@
 package org.manager;
 
-import org.scraper.*;
+import org.dataman.SchoologyData;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,7 +22,8 @@ public class Daemon {
    }
 
    protected static void instantiate() {
-      SchoologyScraper sc = new SchoologyScraper();
-      sc.getCalendar();
+      SchoologyData scData = new SchoologyData();
+
+      scData.calendarAssignmentUpdate();
    }
 }

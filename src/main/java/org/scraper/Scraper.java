@@ -4,6 +4,7 @@ import org.manager.Console;
 
 import org.htmlunit.SilentCssErrorHandler;
 import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlPage;
 import org.htmlunit.Page;
 
 public class Scraper {
@@ -24,12 +25,21 @@ public class Scraper {
   }
 
   //fetch page as Page given url
-  protected Page getPage(String url) {
+  public Page getPage(String url) {
     try {
     return (Page) webC.getPage(url);
     } catch (Exception e) {
       con.err("Eror while fetching page");
       return null;
     } 
+  }
+
+  public HtmlPage getHtmlPage(String url) {
+    try {
+      return (HtmlPage) webC.getPage(url);
+    } catch (Exception e) {
+      con.err("Error while fetching page");
+      return null;
+    }
   }
 }

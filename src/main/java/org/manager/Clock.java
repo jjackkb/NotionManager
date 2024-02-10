@@ -23,15 +23,12 @@ public class Clock {
 
    //update is called by Daemon.main every second, defines the current time, increments refTime and checks for time-elapsed milestones
    public void update() {
-      //define new current time
       Date d = new Date();
 
       h = d.getHours();
       m = d.getMinutes();
       s = d.getSeconds();
 
-      //each nested if statement checks if a span of time has passed and execute its respective method
-      //(refTime != 0) checks program has not just started because all if statements result to true
       if (refTime != 0) {
          if (refTime % 5 == 0) //Every 5 seconds
             sec5();
@@ -47,13 +44,13 @@ public class Clock {
 
    //method execution lists for amount of elapsed time
    private void sec5() {
-      con.out("5 seconds have passed!");
+    return;
    }
    private void min15() {
-      con.out("15 minutes have passed!");
+    return;
    }
    private void min30() {
-      con.out("30 minutes have passed!");
+    return;
    }
    private void hour1() {
       con.out("1 hour has passed!");

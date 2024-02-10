@@ -4,6 +4,7 @@ import org.manager.Console;
 
 import org.htmlunit.WebClient;
 import org.htmlunit.html.DomElement;
+import org.htmlunit.html.DomNode;
 import org.htmlunit.html.HtmlInput;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.Page;
@@ -37,6 +38,41 @@ public class SchoologyScraper extends Scraper {
       con.err("Error while fetching assignment list from Schoology!");
       return null;
     }
+  }
+
+  public String getName(HtmlPage page) {
+    DomNode name = page.querySelector("#center-top > h2");
+
+    return (name == null) ? "null" : name.asNormalizedText();
+  }
+
+  public String getDisc(HtmlPage page) {
+    DomNode disc = page.querySelector("#main-inner > div.info-container > div > div > p");
+
+    return (disc == null) ? "null" : disc.asNormalizedText();
+  }
+
+  //get course name
+  public String getCourse(HtmlPage page) {
+    DomNode course = page.querySelector("#center-top > div.content-top-upper > div > span > a");
+
+    return (course == null) ? "" : switch(course.asNormalizedText()) {
+      case "American Sign Language 3, 4: 2(A)" -> "ASL";
+      case "AP Computer Science A: 7(A)" -> "APCSA";
+      case "Chemistry 1,2: 1(A)" -> "Chemistry";
+      case "Church History 1,2: 6(A)" -> "Church History";
+      case "English 3,4: 3(A)" -> "English";
+      case "Geometry 1,2: 5(A)" -> "Geometry";
+      case "Music Appreciation: 4(A)" -> "Music Appreciation";
+      case "Physical Education-10thGrade: 12(A)" -> "PE";
+      default -> "Null";
+    };
+  }
+
+  public String getDueDate(HtmlPage page) {
+    DomNode dueDate = page.querySelector("#main-inner > div.assignment-details > p");
+
+    return (dueDate == null) ? "null" : dueDate.asNormalizedText();
   }
 
   //Login Methods
