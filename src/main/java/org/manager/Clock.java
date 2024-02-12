@@ -1,5 +1,7 @@
 package org.manager;
 
+import org.dataman.SchoologyData;
+
 import java.text.DecimalFormat;
 import java.util.Date;
 
@@ -8,12 +10,12 @@ public class Clock {
 
    private static final Console con = new Console(Clock.class.getName());
    private static long refTime = 0; //refTime is used to calculate elapsed time of program execution
+   private SchoologyData scData;
    private int h;
    private int m;
    private int s;
 
    public Clock() {
-      con.out("Instantiating Clock object", 2);
       Date d = new Date(); //Date is used to get current time
 
       this.h = d.getHours();
@@ -23,6 +25,7 @@ public class Clock {
 
    //update is called by Daemon.main every second, defines the current time, increments refTime and checks for time-elapsed milestones
    public void update() {
+     scData = Main.getDaemon().getScData();
       Date d = new Date();
 
       h = d.getHours();
@@ -32,6 +35,8 @@ public class Clock {
       if (refTime != 0) {
          if (refTime % 5 == 0) //Every 5 seconds
             sec5();
+         if (refTime % 650 == 0)
+           scData.calendarAssignmentUpdate();
          if (refTime % 900 == 0) //Every 15 minutes
             min15();
          if (refTime % 1800 == 0) //Every 30 minutes
@@ -47,7 +52,7 @@ public class Clock {
     return;
    }
    private void min15() {
-    return;
+    scData.calendarAssignmentUpdate();
    }
    private void min30() {
     return;
@@ -56,6 +61,9 @@ public class Clock {
       con.out("1 hour has passed!");
    }
 
+   public long getRefTime() {
+     return refTime;
+   }
    @Override
    public String toString() {
       //DecimalFormat f is used to format numbers lower than 10 to display as 0x instead of x

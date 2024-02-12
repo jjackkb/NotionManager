@@ -12,26 +12,39 @@ public class Assignment {
   private String disc;
   private String course;
   private String dueDate;
-  private String url;
+  private String url = "https://app.schoology.com/assignment/";
   private String assignId;
-  private int num;
 
-  public Assignment(String name, String disc, String course, String dueDate, String url) {
-    this.assignId = url.replaceAll("\\D+", "");
-
+  public Assignment(String name, String disc, String course, String dueDate, String assignId) {
     con.out(String.format("Instantiating Assignment object for %s", assignId));
     
+    this.assignId = assignId;
     this.name = name;
     this.disc = disc;
     this.course = course;
     this.dueDate = dueDate;
-    this.url = url;
-    this.num = assignments.size();
+    this.url += assignId;
     
     assignments.add(this);
-    }
+  }
+  
+  public String getName() {
+    return name;
+  }
+  public String getDisc() {
+    return disc;
+  }
+  public String getCourse() {
+    return course;
+  }
+  public String getDueDate() {
+    return dueDate;
+  }
+  public String getAssignId() {
+    return assignId;
+  }
 
   public String toString() {
-    return String.format("Assignment %s : %s {\n\tname: %s\n\tdiscription: %s\n\tcourse: %s\n\tdueDate: %s\n\turl: %s\n}\n", num, assignId, name, disc, course, dueDate, url);
+    return String.format("Assignment %s {\n\tname: %s\n\tdiscription: %s\n\tcourse: %s\n\tdueDate: %s\n\turl: %s\n}\n", assignId, name, disc, course, dueDate, url);
   }
 }
