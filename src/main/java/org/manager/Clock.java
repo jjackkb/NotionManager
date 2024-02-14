@@ -1,6 +1,6 @@
 package org.manager;
 
-import org.dataman.SchoologyData;
+import org.dataman.DataManager;
 
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -10,7 +10,7 @@ public class Clock {
 
    private static final Console con = new Console(Clock.class.getName());
    private static long refTime = 0; //refTime is used to calculate elapsed time of program execution
-   private SchoologyData scData;
+   private DataManager dataMan;
    private int h;
    private int m;
    private int s;
@@ -25,7 +25,7 @@ public class Clock {
 
    //update is called by Daemon.main every second, defines the current time, increments refTime and checks for time-elapsed milestones
    public void update() {
-     scData = Main.getDaemon().getScData();
+     dataMan = Main.getDaemon().getDataMan();
       Date d = new Date();
 
       h = d.getHours();
@@ -36,7 +36,7 @@ public class Clock {
          if (refTime % 5 == 0) //Every 5 seconds
             sec5();
          if (refTime % 650 == 0)
-           scData.calendarAssignmentUpdate();
+           dataMan.calendarAssignmentUpdate();
          if (refTime % 900 == 0) //Every 15 minutes
             min15();
          if (refTime % 1800 == 0) //Every 30 minutes
@@ -52,7 +52,7 @@ public class Clock {
     return;
    }
    private void min15() {
-    scData.calendarAssignmentUpdate();
+    dataMan.calendarAssignmentUpdate();
    }
    private void min30() {
     return;

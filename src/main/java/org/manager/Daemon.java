@@ -1,6 +1,6 @@
 package org.manager;
 
-import org.dataman.SchoologyData;
+import org.dataman.DataManager;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Executors;
@@ -12,7 +12,7 @@ public class Daemon {
   private final Runnable clockUpdate; //delay executor method runner
   private static final Console con = new Console(Daemon.class.getName());
   private static final Clock clock = new Clock();
-  public SchoologyData scData;
+  public DataManager dataMan;
 
    public Daemon() {
     con.out("NotionManager daemon started at " + clock);
@@ -25,15 +25,15 @@ public class Daemon {
 
 
    public void instantiate() {
-     this.scData = new SchoologyData();
+     this.dataMan = new DataManager();
 
-      scData.calendarAssignmentUpdate();
+      dataMan.calendarAssignmentUpdate();
    }
 
    public Clock getClock() {
      return clock;
    }
-  public SchoologyData getScData() {
-    return scData;
+  public DataManager getDataMan() {
+    return dataMan;
   }
 }

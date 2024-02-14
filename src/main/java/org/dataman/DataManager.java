@@ -9,12 +9,13 @@ import org.htmlunit.html.HtmlPage;
 
 import java.util.ArrayList;
 
-public class SchoologyData {
+public class DataManager {
+
   private static final LocalDatabase db = new LocalDatabase("/src/main/resources/localDatabaseAssignments.json");
   private static final Console con = new Console(SchoologyData.class.getName());
   private SchoologyScraper sc;
 
-  public SchoologyData() {
+  public DataManager() {
     loadDBAssignments();
     this.sc = new SchoologyScraper();
   }
@@ -84,3 +85,4 @@ public class SchoologyData {
     return true;
   }
 }
+
