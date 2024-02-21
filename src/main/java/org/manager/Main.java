@@ -1,8 +1,10 @@
 package org.manager;
 
+import org.scraper.NotionAPI;
 
 public class Main {
 
+  public static NotionAPI notion = new NotionAPI();
   private static Daemon dam = new Daemon();
   private static Console con = new Console(Main.class.getName());
 

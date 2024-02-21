@@ -17,7 +17,6 @@ public class Scraper {
   private static Clock clock = Main.getDaemon().getClock();
 
   public Scraper() {
-    con.out("Instantiating new WebClient");
     this.startTime = clock.getRefTime();
     this.webC = new WebClient();
     webC.setCssErrorHandler(new SilentCssErrorHandler()); //mute WebClient complaining
@@ -52,7 +51,6 @@ public class Scraper {
 
   private void checkRefTime() {
     if ((startTime + 600) <= clock.getRefTime()) {
-      con.out("WebClient is timed out! Instantiating new WebClient"); 
       webC = new WebClient();
       webC.setCssErrorHandler(new SilentCssErrorHandler()); //mute WebClient complaining
       webC.getOptions().setJavaScriptEnabled(false);

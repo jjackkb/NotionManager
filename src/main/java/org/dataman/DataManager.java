@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DataManager {
 
   private static final LocalDatabase db = new LocalDatabase("/src/main/resources/localDatabaseAssignments.json");
-  private static final Console con = new Console(SchoologyData.class.getName());
+  private static final Console con = new Console(DataManager.class.getName());
   private SchoologyScraper sc;
 
   public DataManager() {
@@ -24,8 +24,6 @@ public class DataManager {
     int intAssignments = 0;
     ArrayList<String> cal = sc.getCalendar();
 
-    con.out("Parsing calendar assignment list");
-    
     for (String s : cal) {
       if (s.contains("URL;VALUE=URI:")) {
         String url = s.replace("URL;VALUE=URI:", "");
@@ -41,7 +39,7 @@ public class DataManager {
         }
       }
     }
-    con.out(String.format("Parsing complete! Instantiated Assignments: %s", intAssignments));
+    con.out(String.format("Fetching Schoology assignments complete! Instantiated Assignments: %s", intAssignments));
   }
   
 
@@ -62,8 +60,6 @@ public class DataManager {
   }
 
   public void loadDBAssignments() {
-    con.out("Loading assignments from local database");
-
     for (Object o : db.getJSONArray()) {
       JSONObject obj = (JSONObject) o;
       
